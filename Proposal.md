@@ -20,22 +20,22 @@ We will build a digital environment and create a simple virtual pet that will in
 
 ## Outcomes
 Ideal Outcome:
-- Have a personalized background
-- a virtual character that will change expressions when clicked on.
+- Have a personalized background.
+- Have a virtual character that will change expressions when clicked on.
 
 Minimal Viable Outcome:
-- At least have a character that lives inside a personalized background
-- Alternative feature: Have the character move when clicked on (be able to place the character anywhere in the environment)
+- At least have a character that lives inside a personalized background.
+- Alternative feature: Have the character move when clicked on (be able to place the character anywhere in the environment).
 
 ## Milestones
 
 - Week 1
-  1. build a virtual background
+  1. Build a virtual background
 
 - Week 2
-  1. customize a custom virtual pet character
+  1. Customize a virtual pet character
   2. Have a different expression for the character
 
 - Week N (Final)
-  1. have the character inside of the environment
-  2. have the character change expressions when clicked
+  1. Have the character inside of the environment
+  2. Have the character change expressions when clicked
