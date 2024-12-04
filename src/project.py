@@ -2,7 +2,7 @@ import random
 import pygame
 
 class Particle:
-    def __init__(self, pos=(0, 0), size=100, life=1000):
+    def __init__(self, pos=(0, 0), size=500, life=500):
         self.pos = pos
         self.size = size
         self.color = pygame.Color(255, 255, 255)
@@ -63,7 +63,7 @@ class ParticleTrail:
 class Rain:
     def __init__(self, screen_res):
         self.screen_res = screen_res
-        self.particle_size = 15
+        self.particle_size = 25
         self.birth_rate = 2  # trails per frame
         self.trails = []
 
