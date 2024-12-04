@@ -114,7 +114,7 @@ def main():
     pygame.display.set_caption(" Digital Pet")
     clock = pygame.time.Clock()
     dt = 0
-    resolution = (1920, 1080) #display size change back to 1920x1080 pixels
+    resolution = (1000, 1000) #display size change back to 1920x1080 pixels
     screen = pygame.display.set_mode(resolution)
     rain = Rain(resolution)
     running = True
