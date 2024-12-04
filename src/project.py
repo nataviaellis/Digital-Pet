@@ -1,12 +1,11 @@
-python project.pyimport random
+import random
 import pygame
 
-
 class Particle:
-    def __init__(self, pos=(0, 0), size=30, life=1000):
+    def __init__(self, pos=(0, 0), size=100, life=1000):
         self.pos = pos
         self.size = size
-        self.color = pygame.Color(random.randrange(63, 244), random.randrange(0, 7), random.randrange(74, 131))
+        self.color = pygame.Color(255, 255, 255)
         self.age = 0  # age in milliseconds
         self.life = life  # in milliseconds
         self.dead = False
@@ -101,39 +100,48 @@ class DigitalPet:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+        self.dragging = False  # Track if the pet is being dragged
+        self.offset_x = 0
+        self.offset_y = 0
 
     def draw_pet(self, surface):
-        # Body
-        pygame.draw.ellipse(surface, (255, 149, 0), (self.x - 50, self.y - 50, 100, 100))
+        # Head
+        pygame.draw.circle(surface, (255, 149, 0), (self.x, self.y - 7), 50)
 
         # Ears
-        pygame.draw.polygon(surface, (255, 149, 0), [(self.x - 47, self.y - 10), (self.x - 15, self.y - 48), (self.x - 45, self.y - 85)])
-        pygame.draw.polygon(surface, (255, 149, 0), [(self.x + 47, self.y - 10), (self.x + 15, self.y - 48), (self.x + 45, self.y - 85)])
+        pygame.draw.polygon(surface, (255, 0, 0), [(self.x - 47, self.y - 10), (self.x - 15, self.y - 48), (self.x - 45, self.y - 85)])
+        pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 47, self.y - 10), (self.x + 15, self.y - 48), (self.x + 45, self.y - 85)])
 
-        # Inner Ears
-        pygame.draw.polygon(surface, (255, 0, 0), [(self.x - 40, self.y - 34), (self.x - 25, self.y - 48), (self.x - 40, self.y - 68)])
-        pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 40, self.y - 34), (self.x + 25, self.y - 48), (self.x + 40, self.y - 68)])
+        # Fur
+        pygame.draw.arc(surface, (255, 255, 255), (self.x - 56, self.y - 56, 112, 102), 3, 177)
 
         # Eyes
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 44, self.y - 30, 49, 44))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 4, self.y - 30, 49, 44))
-        
-        pygame.draw.ellipse(surface, (0, 0, 0), (self.x - 30, self.y - 20, 25, 25))
-        pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 20, self.y - 20, 25, 25))
-
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 25, self.y - 15, 13, 13))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 32, self.y - 18, 9, 9))
-        
+        pygame.draw.ellipse(surface, (150, 109, 32), (self.x - 24, self.y - 7, 49, 44))
+        pygame.draw.ellipse(surface, (150, 109, 32), (self.x + 24, self.y - 7, 49, 44))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 21, self.y - 7, 45, 45))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 21, self.y - 7, 45, 45))
+        pygame.draw.ellipse(surface, (0, 0, 0), (self.x - 15, self.y - 7, 25, 25))
+        pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 15, self.y - 7, 25, 25))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 25, self.y - 7, 10, 7))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 25, self.y - 7, 10, 7))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 16, self.y - 10, 10, 10))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 16, self.y - 10, 10, 10))
 
         # Nose
-        pygame.draw.polygon(surface, (247, 148, 148), [(self.x - 12, self.y + 15), (self.x + 12, self.y + 15), (self.x, self.y + 25)])
-
-        # Mouth
-        pygame.draw.arc(surface, (255, 0, 0), (self.x - 15, self.y + 20, 30, 20), 3.14, 2 * 3.14, 2)
+        pygame.draw.polygon(surface, (247, 148, 148), [(self.x - 12, self.y + 15), (self.x + 10, self.y + 15), (self.x, self.y)])
 
         # Whiskers
         pygame.draw.line(surface, (0, 0, 0), (self.x - 55, self.y + 22), (self.x - 32, self.y + 22), 2)
-        pygame.draw.line(surface, (0, 0, 0), (self.x + 55, self.y + 22), (self.x + 32, self.y + 22), 2)
+        pygame.draw.line(surface, (0, 0, 0), (self.x + 50, self.y + 22), (self.x + 30, self.y + 22), 2)
+        pygame.draw.line(surface, (0, 0, 0), (self.x - 55, self.y + 34), (self.x - 32, self.y + 27), 2)
+        pygame.draw.line(surface, (0, 0, 0), (self.x + 50, self.y + 34), (self.x + 30, self.y + 27), 2)
+
+        # Mouth
+        pygame.draw.arc(surface, (255, 0, 0), (self.x - 22, self.y + 21, 45, 35), 3, 177)
+
+        # Tongue
+        pygame.draw.ellipse(surface, (138, 32, 32), (self.x, self.y + 30, 16, 11))
+        pygame.draw.ellipse(surface, (250, 147, 147), (self.x, self.y + 34, 28, 10))
 
 
 def main():
