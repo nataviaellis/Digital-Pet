@@ -23,12 +23,12 @@ class Particle:
         size = self.size
         surf = pygame.Surface((size, size // 2), pygame.SRCALPHA)  # Enable per-pixel alpha
         
-        # Draw bone shape
-        # Left circle (head of the bone)
+        # Draw cat shape
+
         pygame.draw.circle(surf, self.color, (size // 4, size // 4), size // 4)
-        # Right circle (head of the bone)
+        
         pygame.draw.circle(surf, self.color, (3 * size // 4, size // 4), size // 4)
-        # Rectangle (body of the bone)
+        
         pygame.draw.rect(surf, self.color, (size // 4, size // 4, size // 2, size // 4))
         
         return surf
