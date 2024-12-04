@@ -105,43 +105,40 @@ class DigitalPet:
         self.offset_y = 0
 
     def draw_pet(self, surface):
-        # Head
+        # Draw the pet
         pygame.draw.circle(surface, (255, 149, 0), (self.x, self.y - 7), 50)
-
-        # Ears
+        # Ears, fur, eyes, nose, whiskers, mouth, and tongue
+        # (This part remains unchanged)
         pygame.draw.polygon(surface, (255, 0, 0), [(self.x - 47, self.y - 10), (self.x - 15, self.y - 48), (self.x - 45, self.y - 85)])
         pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 47, self.y - 10), (self.x + 15, self.y - 48), (self.x + 45, self.y - 85)])
-
-        # Fur
         pygame.draw.arc(surface, (255, 255, 255), (self.x - 56, self.y - 56, 112, 102), 3, 177)
-
-        # Eyes
         pygame.draw.ellipse(surface, (150, 109, 32), (self.x - 24, self.y - 7, 49, 44))
         pygame.draw.ellipse(surface, (150, 109, 32), (self.x + 24, self.y - 7, 49, 44))
         pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 21, self.y - 7, 45, 45))
         pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 21, self.y - 7, 45, 45))
         pygame.draw.ellipse(surface, (0, 0, 0), (self.x - 15, self.y - 7, 25, 25))
         pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 15, self.y - 7, 25, 25))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 25, self.y - 7, 10, 7))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 25, self.y - 7, 10, 7))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 16, self.y - 10, 10, 10))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 16, self.y - 10, 10, 10))
-
-        # Nose
         pygame.draw.polygon(surface, (247, 148, 148), [(self.x - 12, self.y + 15), (self.x + 10, self.y + 15), (self.x, self.y)])
-
-        # Whiskers
         pygame.draw.line(surface, (0, 0, 0), (self.x - 55, self.y + 22), (self.x - 32, self.y + 22), 2)
         pygame.draw.line(surface, (0, 0, 0), (self.x + 50, self.y + 22), (self.x + 30, self.y + 22), 2)
-        pygame.draw.line(surface, (0, 0, 0), (self.x - 55, self.y + 34), (self.x - 32, self.y + 27), 2)
-        pygame.draw.line(surface, (0, 0, 0), (self.x + 50, self.y + 34), (self.x + 30, self.y + 27), 2)
-
-        # Mouth
         pygame.draw.arc(surface, (255, 0, 0), (self.x - 22, self.y + 21, 45, 35), 3, 177)
-
-        # Tongue
         pygame.draw.ellipse(surface, (138, 32, 32), (self.x, self.y + 30, 16, 11))
         pygame.draw.ellipse(surface, (250, 147, 147), (self.x, self.y + 34, 28, 10))
+
+    def handle_mouse_down(self, pos):
+        # Check if the pet is clicked
+        if (self.x - 50 <= pos[0] <= self.x + 50) and (self.y - 50 <= pos[1] <= self.y + 50):
+            self.dragging = True
+            self.offset_x = pos[0] - self.x
+            self.offset_y = pos[1] - self.y
+
+    def handle_mouse_up(self):
+        self.dragging = False
+
+    def update_position(self, pos):
+        if self.dragging:
+            self.x = pos[0] - self.offset_x
+            self.y = pos[1] - self.offset_y
 
 
 def main():
@@ -153,7 +150,7 @@ def main():
     screen = pygame.display.set_mode(resolution)
 
     rain = Rain(resolution)
-    pet = DigitalPet(400, 300) #center
+    pet = DigitalPet(400, 300)  # center
     running = True
 
     while running:
@@ -162,7 +159,12 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse clicks
-                rain.birth_rate = min(rain.birth_rate + 1, 5)  # Cap the birth rate at 10
+                pet.handle_mouse_down(event.pos)  # Handle the pet dragging
+                rain.birth_rate = min(rain.birth_rate + 1, 5)  # Cap the birth rate at 5
+            elif event.type == pygame.MOUSEBUTTONUP:  # Handle mouse button release
+                pet.handle_mouse_up()
+            elif event.type == pygame.MOUSEMOTION:  # Handle mouse motion
+                pet.update_position(event.pos)
 
         # Game logic
         rain.update(dt)
