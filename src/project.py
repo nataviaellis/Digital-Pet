@@ -64,7 +64,7 @@ class Rain:
     def __init__(self, screen_res):
         self.screen_res = screen_res
         self.particle_size = 25
-        self.birth_rate = 2  # trails per frame
+        self.birth_rate = 1  # trails per frame
         self.trails = []
 
     def update(self, dt):
