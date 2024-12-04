@@ -1,4 +1,4 @@
-import random
+python project.pyimport random
 import pygame
 
 
@@ -117,8 +117,13 @@ class DigitalPet:
         # Eyes
         pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 44, self.y - 30, 49, 44))
         pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 4, self.y - 30, 49, 44))
+        
         pygame.draw.ellipse(surface, (0, 0, 0), (self.x - 30, self.y - 20, 25, 25))
         pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 20, self.y - 20, 25, 25))
+
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 25, self.y - 15, 13, 13))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 32, self.y - 18, 9, 9))
+        
 
         # Nose
         pygame.draw.polygon(surface, (247, 148, 148), [(self.x - 12, self.y + 15), (self.x + 12, self.y + 15), (self.x, self.y + 25)])
@@ -136,11 +141,11 @@ def main():
     pygame.display.set_caption("Digital Pet")
     clock = pygame.time.Clock()
     dt = 0
-    resolution = (1000, 1000)  # Display size
+    resolution = (800, 600)  # Display size
     screen = pygame.display.set_mode(resolution)
 
     rain = Rain(resolution)
-    pet = DigitalPet(500, 750)
+    pet = DigitalPet(400, 300) #center
     running = True
 
     while running:
@@ -149,14 +154,14 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:  # Detect mouse clicks
-                rain.birth_rate = min(rain.birth_rate + 1, 10)  # Cap the birth rate at 10
+                rain.birth_rate = min(rain.birth_rate + 1, 5)  # Cap the birth rate at 10
 
         # Game logic
         rain.update(dt)
 
         # Render and Display
-        dark_purple = pygame.Color(19, 13, 66)
-        screen.fill(dark_purple)
+        background = pygame.Color(112, 50, 153)
+        screen.fill(background)
         rain.draw(screen)
         pet.draw_pet(screen)  # Call the draw_pet method with the screen as the surface
         pygame.display.flip()
