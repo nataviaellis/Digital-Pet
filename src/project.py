@@ -24,11 +24,8 @@ class Particle:
         surf = pygame.Surface((size, size // 2), pygame.SRCALPHA)  # Enable per-pixel alpha
         
         # Draw cat shape
-
         pygame.draw.circle(surf, self.color, (size // 4, size // 4), size // 4)
-        
         pygame.draw.circle(surf, self.color, (3 * size // 4, size // 4), size // 4)
-        
         pygame.draw.rect(surf, self.color, (size // 4, size // 4, size // 2, size // 4))
         
         return surf
@@ -117,49 +114,40 @@ class DigitalPet:
         # Head
         pygame.draw.circle(surface, (255, 149, 0), (self.x, self.y - 7), 50)
 
-        #White part of fur
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x -60, self.y -10, 120, 80))
+        # White part of fur
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 60, self.y - 10, 120, 80))
 
-        #Ears
-
+        # Ears
         pygame.draw.polygon(surface, (255, 149, 0), [(self.x - 47, self.y - 10), (self.x - 15, self.y - 48), (self.x - 45, self.y - 85)])
         pygame.draw.polygon(surface, (255, 149, 0), [(self.x + 47, self.y - 10), (self.x + 15, self.y - 48), (self.x + 45, self.y - 85)])
 
         pygame.draw.polygon(surface, (255, 0, 0), [(self.x - 40, self.y - 25), (self.x - 10, self.y - 48), (self.x - 45, self.y - 85)])
         pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 40, self.y - 25), (self.x + 10, self.y - 48), (self.x + 45, self.y - 85)])
 
-        
-
-        #Brown Part of eye
-
+        # Brown Part of eye
         pygame.draw.ellipse(surface, (150, 109, 32), (self.x - 55, self.y - 25, 49, 44))
-        pygame.draw.ellipse(surface, (150, 109, 32), (self.x +5, self.y - 25, 49, 44))
-        
+        pygame.draw.ellipse(surface, (150, 109, 32), (self.x + 5, self.y - 25, 49, 44))
 
-        #White Part of Eye
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 45, self.y -25, 45, 45))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x , self.y-25 , 45, 45))
+        # White Part of Eye
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 45, self.y - 25, 45, 45))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x, self.y - 25, 45, 45))
 
-        #Black Part of Eye
-        pygame.draw.ellipse(surface, (0, 0, 0), (self.x -29, self.y - 10, 25, 25))
+        # Black Part of Eye
+        pygame.draw.ellipse(surface, (0, 0, 0), (self.x - 29, self.y - 10, 25, 25))
         pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 10, self.y - 10, 25, 25))
 
-        
-
-
-        #nose
+        # Nose
         pygame.draw.polygon(surface, (247, 148, 148), [(self.x - 12, self.y + 15), (self.x + 10, self.y + 15), (self.x, self.y)])
 
-       #Whiskers 
+        # Whiskers 
         pygame.draw.line(surface, (0, 0, 0), (self.x - 55, self.y + 22), (self.x - 32, self.y + 22), 2)
         pygame.draw.line(surface, (0, 0, 0), (self.x + 50, self.y + 22), (self.x + 30, self.y + 22), 2)
 
+        # Mouth
+        pygame.draw.ellipse(surface, (138, 32, 32), (self.x - 20, self.y + 25, 40, 35))
 
-        #mouth
-        pygame.draw.ellipse(surface, (138, 32, 32), (self.x-20, self.y + 25, 40, 35))
-
-        # tongue
-        pygame.draw.ellipse(surface, (250, 147, 147), (self.x-15, self.y + 50, 28, 10))
+        # Tongue
+        pygame.draw.ellipse(surface, (250, 147, 147), (self.x - 15, self.y + 50, 28, 10))
 
     def handle_mouse_down(self, pos):
         # Check if the pet is clicked
@@ -171,10 +159,24 @@ class DigitalPet:
     def handle_mouse_up(self):
         self.dragging = False
 
-    def update_position(self, pos):
+    def update_position(self, pos, screen_width, screen_height):
         if self.dragging:
-            self.x = pos[0] - self.offset_x
-            self.y = pos[1] - self.offset_y
+            new_x = pos[0] - self.offset_x
+            new_y = pos[1] - self.offset_y
+            
+            # Prevent the pet from going outside the screen boundaries
+            if new_x < 50:  # Prevent going out on the left
+                new_x = 50
+            elif new_x > screen_width - 50:  # Prevent going out on the right
+                new_x = screen_width - 50
+
+            if new_y < 50:  # Prevent going out on the top
+                new_y = 50
+            elif new_y > screen_height - 50:  # Prevent going out on the bottom
+                new_y = screen_height - 50
+
+            self.x = new_x
+            self.y = new_y
 
 
 def main():
@@ -200,7 +202,7 @@ def main():
             elif event.type == pygame.MOUSEBUTTONUP:  # Handle mouse button release
                 pet.handle_mouse_up()
             elif event.type == pygame.MOUSEMOTION:  # Handle mouse motion
-                pet.update_position(event.pos)
+                pet.update_position(event.pos, resolution[0], resolution[1])
 
         # Game logic
         rain.update(dt)
