@@ -1,10 +1,10 @@
 Title: Digital Pet
 Video URL: 
- GitHub Repository URL: 
+ GitHub Repository URL: https://github.com/nataviaellis/Digital-Pet.git
 
 ## Requirements
 
-- **Window & Title** - A 1000x1000 pixel window with a title.
+- **Window & Title** - A 800x600 pixel window with a title.
 - **basic environment** - I will create pixelated bones falling down the screen.
 - **pet character** - this is based on the users choice but I will create a dog using pygame.
 
