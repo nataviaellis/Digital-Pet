@@ -20,8 +20,17 @@ class Particle:
             self.alpha = int(20 * (1 - (self.age / self.life)))
 
     def update_surface(self):
-        surf = pygame.Surface((self.size, self.size), pygame.SRCALPHA)  # Enable per-pixel alpha
-        pygame.draw.circle(surf, self.color, (self.size // 2, self.size // 2), self.size // 2)
+        size = self.size
+        surf = pygame.Surface((size, size // 2), pygame.SRCALPHA)  # Enable per-pixel alpha
+        
+        # Draw bone shape
+        # Left circle (head of the bone)
+        pygame.draw.circle(surf, self.color, (size // 4, size // 4), size // 4)
+        # Right circle (head of the bone)
+        pygame.draw.circle(surf, self.color, (3 * size // 4, size // 4), size // 4)
+        # Rectangle (body of the bone)
+        pygame.draw.rect(surf, self.color, (size // 4, size // 4, size // 2, size // 4))
+        
         return surf
 
     def draw(self, surface):
