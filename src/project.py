@@ -114,25 +114,53 @@ class DigitalPet:
         self.offset_y = 0
 
     def draw_pet(self, surface):
-        # Draw the pet
+        # Head
         pygame.draw.circle(surface, (255, 149, 0), (self.x, self.y - 7), 50)
-        # Ears, fur, eyes, nose, whiskers, mouth, and tongue
-        # (This part remains unchanged)
-        pygame.draw.polygon(surface, (255, 0, 0), [(self.x - 47, self.y - 10), (self.x - 15, self.y - 48), (self.x - 45, self.y - 85)])
-        pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 47, self.y - 10), (self.x + 15, self.y - 48), (self.x + 45, self.y - 85)])
-        pygame.draw.arc(surface, (255, 255, 255), (self.x - 56, self.y - 56, 112, 102), 3, 177)
-        pygame.draw.ellipse(surface, (150, 109, 32), (self.x - 24, self.y - 7, 49, 44))
-        pygame.draw.ellipse(surface, (150, 109, 32), (self.x + 24, self.y - 7, 49, 44))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 21, self.y - 7, 45, 45))
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x + 21, self.y - 7, 45, 45))
-        pygame.draw.ellipse(surface, (0, 0, 0), (self.x - 15, self.y - 7, 25, 25))
-        pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 15, self.y - 7, 25, 25))
+
+        #White part of fur
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x -55, self.y -10, 120, 80))
+
+        #Ears
+
+        pygame.draw.polygon(surface, (255, 149, 0), [(self.x - 47, self.y - 10), (self.x - 15, self.y - 48), (self.x - 45, self.y - 85)])
+        pygame.draw.polygon(surface, (255, 149, 0), [(self.x + 47, self.y - 10), (self.x + 15, self.y - 48), (self.x + 45, self.y - 85)])
+
+        pygame.draw.polygon(surface, (255, 0, 0), [(self.x - 40, self.y - 25), (self.x - 10, self.y - 48), (self.x - 45, self.y - 85)])
+        pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 40, self.y - 25), (self.x + 10, self.y - 48), (self.x + 45, self.y - 85)])
+
+        
+        pygame.draw.arc(surface, (255, 255, 255), (self.x - 40, self.y - 40, 112, 102), 3, 177)
+
+        #Brown Part of eye
+
+        pygame.draw.ellipse(surface, (150, 109, 32), (self.x - 55, self.y - 25, 49, 44))
+        pygame.draw.ellipse(surface, (150, 109, 32), (self.x +5, self.y - 25, 49, 44))
+        
+
+        #White Part of Eye
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x - 45, self.y -25, 45, 45))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x , self.y-25 , 45, 45))
+
+        #Black Part of Eye
+        pygame.draw.ellipse(surface, (0, 0, 0), (self.x -29, self.y - 10, 25, 25))
+        pygame.draw.ellipse(surface, (0, 0, 0), (self.x + 10, self.y - 10, 25, 25))
+
+        
+
+
+        #nose
         pygame.draw.polygon(surface, (247, 148, 148), [(self.x - 12, self.y + 15), (self.x + 10, self.y + 15), (self.x, self.y)])
+
+       #Whiskers 
         pygame.draw.line(surface, (0, 0, 0), (self.x - 55, self.y + 22), (self.x - 32, self.y + 22), 2)
         pygame.draw.line(surface, (0, 0, 0), (self.x + 50, self.y + 22), (self.x + 30, self.y + 22), 2)
-        pygame.draw.arc(surface, (255, 0, 0), (self.x - 22, self.y + 21, 45, 35), 3, 177)
-        pygame.draw.ellipse(surface, (138, 32, 32), (self.x, self.y + 30, 16, 11))
-        pygame.draw.ellipse(surface, (250, 147, 147), (self.x, self.y + 34, 28, 10))
+
+
+        #mouth
+        pygame.draw.ellipse(surface, (138, 32, 32), (self.x-10, self.y + 25, 40, 35))
+
+        # tongue
+        pygame.draw.ellipse(surface, (250, 147, 147), (self.x-5, self.y + 50, 28, 10))
 
     def handle_mouse_down(self, pos):
         # Check if the pet is clicked
