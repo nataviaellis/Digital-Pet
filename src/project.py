@@ -118,7 +118,7 @@ class DigitalPet:
         pygame.draw.circle(surface, (255, 149, 0), (self.x, self.y - 7), 50)
 
         #White part of fur
-        pygame.draw.ellipse(surface, (255, 255, 255), (self.x -55, self.y -10, 120, 80))
+        pygame.draw.ellipse(surface, (255, 255, 255), (self.x -60, self.y -10, 120, 80))
 
         #Ears
 
@@ -129,7 +129,6 @@ class DigitalPet:
         pygame.draw.polygon(surface, (255, 0, 0), [(self.x + 40, self.y - 25), (self.x + 10, self.y - 48), (self.x + 45, self.y - 85)])
 
         
-        pygame.draw.arc(surface, (255, 255, 255), (self.x - 40, self.y - 40, 112, 102), 3, 177)
 
         #Brown Part of eye
 
@@ -157,10 +156,10 @@ class DigitalPet:
 
 
         #mouth
-        pygame.draw.ellipse(surface, (138, 32, 32), (self.x-10, self.y + 25, 40, 35))
+        pygame.draw.ellipse(surface, (138, 32, 32), (self.x-20, self.y + 25, 40, 35))
 
         # tongue
-        pygame.draw.ellipse(surface, (250, 147, 147), (self.x-5, self.y + 50, 28, 10))
+        pygame.draw.ellipse(surface, (250, 147, 147), (self.x-15, self.y + 50, 28, 10))
 
     def handle_mouse_down(self, pos):
         # Check if the pet is clicked
