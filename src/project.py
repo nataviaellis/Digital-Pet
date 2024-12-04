@@ -9,7 +9,7 @@ class Particle:
         self.age = 0  # age in milliseconds
         self.life = life  # in milliseconds
         self.dead = False
-        self.alpha = 255
+        self.alpha = 5
         self.surface = self.update_surface()
 
     def update(self, dt):
@@ -17,7 +17,7 @@ class Particle:
         if self.age > self.life:
             self.dead = True
         else:
-            self.alpha = int(255 * (1 - (self.age / self.life)))
+            self.alpha = int(20 * (1 - (self.age / self.life)))
 
     def update_surface(self):
         surf = pygame.Surface((self.size, self.size), pygame.SRCALPHA)  # Enable per-pixel alpha
