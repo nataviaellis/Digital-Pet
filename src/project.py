@@ -111,7 +111,7 @@ class Rain():
 
 def main():
     pygame.init()
-    pygame.display.set_caption("Challenge Lab 8: Digital Rain")
+    pygame.display.set_caption(" Digital Pet")
     clock = pygame.time.Clock()
     dt = 0
     resolution = (1920, 1080) #display size change back to 1920x1080 pixels
